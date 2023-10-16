@@ -29,8 +29,8 @@
    */
   $uuid = preg_replace_callback(
     "/x|y/",
-    function ($m) {
-      return dechex($m[0] === 'x' ? random_int(0, 15) : random_int(8, 11))
+    function($m) {
+      return dechex($m[0] === 'x' ? random_int(0, 15) : random_int(8, 11));
     },
     "xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx"
   );
