@@ -12,7 +12,7 @@
   // ファイルの安全性の確認
 
   if (!isset("image", $_POST)) exit(json_encode(array(
-    message => "Error: File Not Setted"
+    "message" => "Error: File Not Setted"
   )));
 
   $file_name = $_FILES["image"]["name"];
@@ -21,7 +21,7 @@
   $mimetype = exif_imagetype($file_tmpname);
 
   if (!($mimetype && in_array($file_extension, image_extension, true))) exit(json_encode(array(
-    message => "Error: it is not image."
+    "message" => "Error: it is not image."
   )));
 
   /**
@@ -38,8 +38,8 @@
   move_uploaded_file($file_tmpname, "../images/".$uuid.$file_extension);
 
   exit(json_encode(array(
-    message => "ok",
-    url => $uuid.$file_extension
+    "message" => "ok",
+    "url" => $uuid.$file_extension
   )))
 
 ?>
