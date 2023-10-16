@@ -11,18 +11,22 @@
   
   // ファイルの安全性の確認
 
-  if (!array_key_exists("image", $_FILES)) exit(json_encode(array(
-    "message" => "Error: File Not Setted"
-  )));
+  if (!$_FILES["image"]) {
+    exit(json_encode(array(
+      "message" => "Error: File Not Setted"
+    )));
+  }
 
   $file_name = $_FILES["image"]["name"];
   $file_tmpname = $_FILES["image"]["tmp_name"];
   $file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
   $mimetype = exif_imagetype($file_tmpname);
 
-  if (!($mimetype && in_array($file_extension, image_extension, true))) exit(json_encode(array(
-    "message" => "Error: it is not image."
-  )));
+  if (!($mimetype && in_array($file_extension, image_extension, true))) {
+    exit(json_encode(array(
+      "message" => "Error: it is not image."
+    )));
+  }
 
   /**
    * uuid
@@ -35,11 +39,13 @@
     "xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx"
   );
 
-  move_uploaded_file($file_tmpname, "../images/".$uuid.$file_extension);
+  $save_file_name = $uuid.".".$file_extension;
+
+  move_uploaded_file($file_tmpname, "../images/" . $save_file_name);
 
   exit(json_encode(array(
     "message" => "ok",
-    "url" => $uuid.$file_extension
+    "url" => $save_file_name
   )))
 
 ?>
