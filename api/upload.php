@@ -11,7 +11,7 @@
   
   // ファイルの安全性の確認
 
-  if (!isset("image", $_POST)) exit(json_encode(array(
+  if (!array_key_exists("image", $_FILES)) exit(json_encode(array(
     "message" => "Error: File Not Setted"
   )));
 
